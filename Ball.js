@@ -3,18 +3,18 @@ let velocity;
 let gameOver = false;
 let xBar = 112;
 let yBar = 355;
-let bricks;
+let bricks = [];
 
 function setup() {
   createCanvas(640, 360);
   background(200);
   position = createVector(100, 100);
   velocity = createVector(2.5, 5);
-  bricks = new Brick();
+  createBricks();
 }
 function createBricks() {
-  const bricks = [];
-  const rows = 10;
+  // const bricks = [];
+  const rows = 5;
   const bricksPerRow = 10;
   const brickWidth = this.width / bricksPerRow;
   for (let row = 0; row < rows; row++) {
@@ -23,10 +23,13 @@ function createBricks() {
       bricks.push(brick);
     }
   }
-  return bricks;
+  // return bricks;
 }
 function draw() {
   background(255);
+  bricks.forEach(function(brick) {
+    brick.display();
+  });
 
   // Add the current speed to the position.
   position.add(velocity);
@@ -37,7 +40,7 @@ function draw() {
   if (position.y < 0) {
     velocity.y = velocity.y * -1;
   }
-  if (position.x >= xBar && position.x <= xBar + 120) {
+  if (position.x >= mouseX && position.x <= mouseX + 120) {
     if (position.y > yBar) {
       velocity.y = velocity.y * -1;
     }
@@ -45,7 +48,7 @@ function draw() {
   if (position.y > height) {
     gameOver = true;
     textSize(50);
-    text("Game Over", 10, 30);
+    text("Game Over", 10, 300);
   }
 
   // Display circle at x position
@@ -53,17 +56,24 @@ function draw() {
   strokeWeight(2);
   fill(27);
   ellipse(position.x, position.y, 15, 15);
-  rect(xBar, yBar, 120, 4);
+  rect(mouseX, yBar, 120, 4);
+  bricks.forEach(function(brick, i) {
+    if (brick.isColliding(position.x, position.y)) {
+      velocity.y = velocity.y * -1;
+      bricks.splice(i, 1);
+    } else {
+      brick.display();
+    }
+  });
 }
-function keyPressed(rect) {
+function keyPressed() {
   if (keyCode === LEFT_ARROW) {
-    xBar = xBar - 15;
+    xBar = xBar - 30;
   } else if (keyCode === RIGHT_ARROW) {
-    xBar = xBar + 15;
+    xBar = xBar + 30;
   }
 }
 
-Brick.display();
 /* class Ball {
   constructor() {
     this.xPos = 200;
