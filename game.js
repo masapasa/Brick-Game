@@ -9,7 +9,7 @@ function draw() {
 } */
 let position;
 let velocity;
-/* let ball = new Ball() */
+let ball = new Ball();
 let gameOver = false;
 let xBar = 112;
 let yBar = 355;
