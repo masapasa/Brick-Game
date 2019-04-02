@@ -4,6 +4,7 @@ let gameOver = false;
 let xBar = 112;
 let yBar = 355;
 let bricks = [];
+let playerScore = 0;
 
 function setup() {
   createCanvas(640, 360);
@@ -50,6 +51,7 @@ function draw() {
     textSize(50);
     text("Game Over", 10, 300);
   }
+  text(`Score:${playerScore}`, width - 150, height - 50);
 
   // Display circle at x position
   stroke(0);
@@ -61,6 +63,7 @@ function draw() {
     if (brick.isColliding(position.x, position.y)) {
       velocity.y = velocity.y * -1;
       bricks.splice(i, 1);
+      playerScore += 1;
     } else {
       brick.display();
     }
