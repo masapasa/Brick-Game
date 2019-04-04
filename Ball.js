@@ -10,10 +10,11 @@ let ACCElARATION = 0.1;
 function setup() {
   createCanvas(640, 360);
   background(200);
-  position = createVector(100, 100);
+  position = createVector(100, 200);
   velocity = createVector(2.5, 5);
   createBricks();
 }
+
 function createBricks() {
   // const bricks = [];
   const rows = 5;
@@ -49,7 +50,7 @@ function draw() {
   }
   if (position.y > height) {
     gameOver = true;
-    textSize(50);
+    textSize(30);
     text("Game Over", 10, 300);
   }
   text(`Score:${playerScore}`, width - 150, height - 50);
@@ -59,7 +60,9 @@ function draw() {
   strokeWeight(2);
   fill(27);
   ellipse(position.x, position.y, 15, 15);
-  rect(mouseX, yBar, 120, 4);
+  if (mouseX >= 0 && mouseX <= width) rect(mouseX, yBar, 120, 4);
+  if (mouseX < 0) rect(0, yBar, 120, 4);
+  if (mouseX + 120 > width) rect(width - 120, yBar, 120, 4);
   bricks.forEach(function(brick, i) {
     if (brick.isColliding(position.x, position.y)) {
       velocity.y = velocity.y * -1;
