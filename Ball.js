@@ -5,6 +5,7 @@ let xBar = 112;
 let yBar = 355;
 let bricks = [];
 let playerScore = 0;
+let ACCElARATION = 0.1;
 
 function setup() {
   createCanvas(640, 360);
@@ -64,6 +65,8 @@ function draw() {
       velocity.y = velocity.y * -1;
       bricks.splice(i, 1);
       playerScore += 1;
+      velocity.x += ACCElARATION * playerScore;
+      velocity.y += ACCElARATION * playerScore;
     } else {
       brick.display();
     }
