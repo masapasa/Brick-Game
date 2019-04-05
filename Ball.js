@@ -48,7 +48,7 @@ function draw() {
       velocity.y = velocity.y * -1;
     }
   }
-  if (position.y > height) {
+  if (position.y > height + 15) {
     gameOver = true;
     textSize(30);
     text("Game Over", 10, 300);
